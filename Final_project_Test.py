@@ -2,7 +2,6 @@ from sklearn.metrics import f1_score, accuracy_score, classification_report
 from sklearn.model_selection import train_test_split  # Add this line
 import numpy as np
 import pandas as pd
-import random
 # Custom file holds my classifier. You should use one of your own
 from Custom import Classifier 
 #from Custom import Classifier1 as Classifier
@@ -24,10 +23,11 @@ def compute_final_score(classifier_f1):
 
 if __name__ == '__main__':
 
-        
+    data = pd.read_csv('data.csv')
+    train_data, test_data = train_test_split(data, test_size=0.2, random_state=42)
     #save train and test data to csv files
     #df = pd.read_csv("C:\\Afeka\\Teaching\\intro_to_ML\\Final_project\\train_data.csv")
-    df = pd.read_csv("train_data.csv")
+    df = train_data #pd.read_csv("train_data.csv")
     X_train = np.array(df.iloc[:, :-1])  # Extracting all rows and all columns except the last one
     y_train = np.array(df.iloc[:, -1])
     classifier = Classifier()
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     classifier.fit(X_train, y_train)
 
     # df = pd.read_csv("C:\\Afeka\\Teaching\\intro_to_ML\\Final_project\\test_data.csv")
-    df = pd.read_csv("test_data.csv")
+    df = test_data #pd.read_csv("test_data.csv")
     X_test = np.array(df.iloc[:, :-1])  # Extracting all rows and all columns except the last one
     Y_test = np.array(df.iloc[:, -1])
 

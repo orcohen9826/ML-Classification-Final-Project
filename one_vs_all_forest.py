@@ -1,9 +1,7 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, confusion_matrix, f1_score
+from sklearn.metrics import classification_report, f1_score
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import classification_report
-from sklearn.model_selection import train_test_split
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 
@@ -38,7 +36,6 @@ class Forest1VsAllClassifier(BaseEstimator, ClassifierMixin):
             cls: dict(zip(self.param_names, params))
             for cls, params in zip(self.classes, self.class_params_matrix)
         }
-
 
     def train_forest_for_single_class(self, target_class, train_data):
         """
@@ -196,7 +193,6 @@ class Forest1VsAllClassifier(BaseEstimator, ClassifierMixin):
 
         print()
         return self
-
     # def predict(self, X_test, y_test):
     def predict(self, X_test):
         """
@@ -208,17 +204,6 @@ class Forest1VsAllClassifier(BaseEstimator, ClassifierMixin):
         # all_predictions,_ = self.get_prediction_from_all_forests(self.models, X_test, y_test)
         all_predictions = self.get_prediction_from_all_forests(self.models, X_test)
         final_decisions,_ = self.get_final_prediction(all_predictions)
-
-        # print("\nFinal Classification Report For One-vs-All Classifiers:")
-        # print(classification_report(y_test, final_decisions, zero_division=0))
-        # print()
-        # print("\nFinal Confusion Matrix For One-vs-All Classifiers:")
-        # print(confusion_matrix(y_test, final_decisions))
-        # print()
-        # print(f"Total F1 Score for One-vs-All Classifiers:  {f1_score(y_test, final_decisions, average='weighted'):.2f}")
-        # print()
-        # print()
-
 
         return final_decisions
     
@@ -235,8 +220,6 @@ class Forest1VsAllClassifier(BaseEstimator, ClassifierMixin):
 
         # Extract probabilities from the final predictions
         _, final_probabilities = self.get_final_prediction(all_predictions)
-
-
 
         return final_probabilities
 

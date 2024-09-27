@@ -1,23 +1,34 @@
 import warnings
-
-from sklearn.model_selection import StratifiedKFold
 warnings.filterwarnings("ignore", message=".*Could not find the number of physical cores.*")
-
 import pandas as pd
-from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
+from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.ensemble import RandomForestClassifier, StackingClassifier
 from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import StratifiedKFold
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+from Custom_Random_Forest import CustomRandomForestClassifier
+from one_vs_all_forest import Forest1VsAllClassifier
+from sklearn.preprocessing import StandardScaler, PolynomialFeatures
+from sklearn.base import BaseEstimator, ClassifierMixin
 
 
 
-
-
-
-
+#######################################################################################################################################                          
+######################################-------------------Classifier-------------------##################################################
 ########################################################################################################################################
-                              #-------------------Custom Stacking Classifier-------------------#
-########################################################################################################################################
+
+'''
+2 classes are defined in this section: CustomStackingClassifier and Classifier.
+The CustomStackingClassifier class is a custom stacking classifier that uses cross-validation to train 
+the base models and the final estimator. 
+The Classifier class is a custom classifier that uses the CustomStackingClassifier as the model. 
+'''
+
+#-------------------Custom Stacking Classifier-------------------#
 '''
 The CustomStackingClassifier class is a custom stacking classifier that uses cross-validation to train the base 
 models and the final estimator. The base models are trained on the training data, and the predictions from the base
@@ -127,20 +138,9 @@ class CustomStackingClassifier(BaseEstimator, ClassifierMixin):
 
         return predictions
 
-########################################################################################################################################
 
-########################################################################################################################################
+#------------------- Custom Classifier -------------------#
 
-
-
-
-
-
-
-
-########################################################################################################################################
-                              #------------------- Custom Classifier -------------------#
-########################################################################################################################################
 '''
 The Custom_classifier class is a custom classifier that uses a custom stacking classifier as the model. 
 The base models are:
@@ -150,6 +150,7 @@ The base models are:
        4: LogisticRegression - Logistic
 
 The final estimator is a CustomRandomForestClassifier. The model is trained on the training data and used to predict the test data.
+F1 score: 0.94
 '''
 class Classifier(BaseEstimator, ClassifierMixin):
     def __init__(self):     
@@ -200,6 +201,7 @@ class Classifier(BaseEstimator, ClassifierMixin):
         return self.model.predict_proba(X)
     
 
+########################################################################################################################################
 
 
 
@@ -219,9 +221,7 @@ class Classifier(BaseEstimator, ClassifierMixin):
 
 
 
-
-
-
+## The following classifiers are not under the project's guidelines, but they are provided for comparison purposes. ##
 
 
 
@@ -229,9 +229,7 @@ class Classifier(BaseEstimator, ClassifierMixin):
 
 
 ####################################################################################################################################################
-
 ###########################################   ----  Classifier1  ----   ############################################################################
-
 ####################################################################################################################################################
 '''
 The Classifier1 class is a custom classifier that uses a stacking classifier with the following base models:
@@ -241,15 +239,10 @@ The Classifier1 class is a custom classifier that uses a stacking classifier wit
     4: LogisticRegression - Logistic
 
 The final estimator is a CustomRandomForestClassifier. The model is trained on the training data and used to predict the test data.
-
+F1 score: 0.95
 '''
 
-
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.linear_model import LogisticRegression
-from Custom_Random_Forest import CustomRandomForestClassifier
-from one_vs_all_forest import Forest1VsAllClassifier
-
+from sklearn.ensemble import StackingClassifier
 class Classifier1(BaseEstimator, ClassifierMixin):
     def __init__(self):
         self.scaler = StandardScaler()
@@ -310,20 +303,6 @@ class Classifier1(BaseEstimator, ClassifierMixin):
         X_poly = self.poly.transform(X_scaled)
         return self.model.predict_proba(X_poly)
 ####################################################################################################################################################
-####################################################################################################################################################
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -337,11 +316,10 @@ class Classifier1(BaseEstimator, ClassifierMixin):
 
 
 ####################################################################################################################################################
-
 ###########################################   ----  Classifier2  ----   ############################################################################
-
 ####################################################################################################################################################
 '''
+same as classifier1 but with polynomial features and using pipeline for the models
 The Classifier2 class is a custom classifier that uses a staking classifier with the following base models:
     1: CustomRandomForestClassifier - more details in Custom_Random_Forest.py
     2: Forest1VsAllClassifier - more details in one_vs_all_forest.py
@@ -349,19 +327,11 @@ The Classifier2 class is a custom classifier that uses a staking classifier with
     4: LogisticRegression - Logistic
 
 The final estimator is a CustomRandomForestClassifier. The model is trained on the training data and used to predict the test data.
-
+F1 score: 0.95
 
 '''
 
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.linear_model import LogisticRegression
-from Custom_Random_Forest import CustomRandomForestClassifier
-from one_vs_all_forest import Forest1VsAllClassifier
-from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.pipeline import Pipeline
-from sklearn.ensemble import StackingClassifier
-from sklearn.base import BaseEstimator, ClassifierMixin
-
 class Classifier2(BaseEstimator, ClassifierMixin):
     def __init__(self):
         # Scaler for all models
@@ -425,25 +395,6 @@ class Classifier2(BaseEstimator, ClassifierMixin):
         # Predict probabilities
         return self.model.predict_proba(X)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-####################################################################################################################################################
 ####################################################################################################################################################
 
 
@@ -455,23 +406,9 @@ class Classifier2(BaseEstimator, ClassifierMixin):
 
 
 
-
-
-
-
-
-
-
 ####################################################################################################################################################
-
 ###########################################   ----  Classifier3  ----   ############################################################################
-
 ####################################################################################################################################################
-
-
-
-
-
 '''
 The Classifier3 class is a custom classifier that uses a stacking classifier with the following base models:
     1: RandomForestClassifier - Random Forest
@@ -479,10 +416,10 @@ The Classifier3 class is a custom classifier that uses a stacking classifier wit
     3: MLPClassifier - Multi-layer Perceptron
 
 The final estimator is a MLPClassifier. The model is trained on the training data and used to predict the test data.
+F1 score: 0.97
 
 '''
 from xgboost import XGBClassifier
-
 class Classifier3(BaseEstimator, ClassifierMixin):
     def __init__(self):
         self.scaler = StandardScaler()

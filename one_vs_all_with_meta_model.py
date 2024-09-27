@@ -3,41 +3,11 @@ import pandas as pd
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.discriminant_analysis import StandardScaler
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report, confusion_matrix, f1_score
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import PolynomialFeatures
+from sklearn.metrics import classification_report, f1_score, confusion_matrix
+from sklearn.model_selection import train_test_split, StratifiedKFold
 from sklearn.tree import DecisionTreeClassifier
 
-import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.base import BaseEstimator, ClassifierMixin
-import numpy as np
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, confusion_matrix, f1_score
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import classification_report
-from sklearn.model_selection import train_test_split
-import numpy as np
-from sklearn.base import BaseEstimator, ClassifierMixin
-#random forest for one-vs-all classification
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import StratifiedKFold
 
 
 
