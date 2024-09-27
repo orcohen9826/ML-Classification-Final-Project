@@ -1,5 +1,9 @@
 # Machine Learning Classification Project
 
+# Project Summary
+
+Tasked with classifying imbalanced 40,000 samples into 6 classes. The challenge was to achieve the highest possible F1 score using only Decision Trees, KNN, and Logistic Regression. Implemented custom ensemble methods, including Random Forest and One-vs-All classifiers, to enhance performance. The final model achieved an F1 score of 95.
+
 ## Dataset Overview
 
 ### Class Distribution
@@ -27,11 +31,6 @@ Key observations:
 - The mean values (green bars) are not centered, indicating potential skewness in the distributions.
 
 This variation in feature scales and distributions necessitates preprocessing steps such as normalization or standardization to ensure all features contribute appropriately to the model's decision-making process.
-
-## Project Summary
-
-### Objective
-The goal of this project was to develop a high-performing machine learning classifier for a multi-class classification problem, with a focus on achieving a high F1 score on the test data.
 
 ### Methodology
 
