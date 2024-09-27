@@ -85,4 +85,4 @@ weighted avg       0.94      0.94      0.94      8000
 
 Our implemented solution demonstrates high performance across all classes, with a slight weakness in the underrepresented class 4. The overall F1 score of 0.94 indicates an excellent balance between precision and recall across all classes.
 
-Future work could focus on further optimizing the performance for class 4, perhaps through additional feature engineering or specialized handling of this minority class.
+Future work could focus on further optimizing the performance for class 4, perhaps through additional feature engineering or specialized handling of this minority class. include improving runtime performance, which was outside the scope of this project.
