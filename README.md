@@ -1,4 +1,4 @@
-#**ML Classification Academic Project**
+# **ML Classification Academic Project**
 
 # Project Summary
 
